@@ -1,0 +1,97 @@
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
+
+public class Tests {
+	
+	static AndroidDriver driver;
+	static AppiumDriver driver2;
+	
+	public static void main(String[] args) throws Exception {
+		bitfinexApp();
+	}
+
+	
+	public static void bitfinexApp() throws Exception {
+		DesiredCapabilities cap = new DesiredCapabilities();
+		cap.setCapability("appium:deviceName", "Mi A2");
+		//cap.setCapability("udid", "67d9ede9");
+		cap.setCapability("udid", "4b7c2e6");
+		cap.setCapability("platformName", "ANDROID");
+		cap.setCapability("appium:noreset", "true");
+		
+		//cap.setCapability("appPackage", "com.bitfinex.mobileapp 5.7.0");
+		//cap.setCapability("appActivity", "com.bitfinex.mobileapp.MainActivity");
+		
+		cap.setCapability("appium:app", "C:\\Users\\sneha\\OneDrive\\Desktop\\AndroidSDK\\platform-tools\\prod.apk");
+		
+		//cap.setCapability("appPackage", "com.oneplus.calculator2");
+		//cap.setCapability("appActivity", "com.oneplus.calculator.Calculator");
+		
+		//cap.setCapability("appPackage", "com.google.android.calculator 8.2");
+		//cap.setCapability("appActivity", "com.android.calculator2.Calculator");
+		
+		//driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
+		URL url = new URL("http://127.0.0.1:4723/wd/hub");
+		
+		driver = new AndroidDriver<MobileElement>(url, cap);
+		
+		System.out.println("Bitfinex App started");
+		
+		Thread.sleep(3000);
+		
+		//select Pro
+		//MobileElement selectPro = (MobileElement) driver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]"));
+		MobileElement selectPro = (MobileElement) driver.findElement(By.xpath("//android.view.ViewGroup[1]/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]"));
+		selectPro.click();
+		
+		Thread.sleep(3000);
+		
+		//click on sign in
+		MobileElement signin = (MobileElement) driver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]"));
+		signin.click();
+		
+		Thread.sleep(3000);
+		
+		//log in with api key
+		MobileElement apiKey = (MobileElement) driver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.TextView"));
+		apiKey.click();
+		
+		Thread.sleep(3000);
+		
+		//Allow bitfinex to take pictures
+		MobileElement popup_allow = (MobileElement) driver.findElement(By.id("com.android.permissioncontroller:id/permission_allow_button"));
+		popup_allow.click();
+		
+		Thread.sleep(3000);
+		
+		//click on Add key
+		MobileElement click_addKey = (MobileElement) driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\"input\"]"));
+		
+		Thread.sleep(3000);
+		
+		click_addKey.click();
+		
+		Thread.sleep(3000);
+		
+		//Enter public key
+		driver.findElement(By.xpath("//android.widget.EditText[@content-desc=\"Login-Public-Key-Input\"]")).sendKeys("64JkMAuWR6YgVQ6gDonUmbeuiGbvSmVSjBuKhMOYzhW");
+		
+		Thread.sleep(3000);
+		
+		//Enter Secret key
+		driver.findElement(By.xpath("//android.widget.EditText[@content-desc=\"Login-Secret-Key-Input\"]")).sendKeys("r2TkMWWC0i18SpA1XzorlvoYLnNdZXKTOzoY1pEythe");
+		
+		Thread.sleep(3000);
+		
+		//click on login button
+		driver.findElement(By.id("Login-Button")).click();
+		
+	}
+}

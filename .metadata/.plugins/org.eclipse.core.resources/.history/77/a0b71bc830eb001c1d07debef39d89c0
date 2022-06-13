@@ -1,0 +1,44 @@
+import java.net.URL;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
+
+public class Tests {
+	
+	static AndroidDriver driver;
+	static AppiumDriver driver2;
+	
+	public static void main(String[] args) throws Exception {
+		bitfinexApp();
+	}
+
+	
+	public static void bitfinexApp() throws Exception {
+		DesiredCapabilities cap = new DesiredCapabilities();
+		cap.setCapability("appium:deviceName", "Mi A2");
+		//cap.setCapability("udid", "67d9ede9");
+		cap.setCapability("udid", "4b7c2e6");
+		cap.setCapability("platformName", "ANDROID");
+		cap.setCapability("appium:noreset", "true");
+		
+		cap.setCapability("appPackage", "com.bitfinex.mobileapp 5.7.0");
+		cap.setCapability("appActivity", "com.bitfinex.mobileapp.MainActivity");
+		
+		cap.setCapability("appium:app", "C:\\Users\\sneha\\OneDrive\\Desktop\\AndroidSDK\\platform-tools\\prod.apk");
+		
+		//cap.setCapability("appPackage", "com.oneplus.calculator2");
+		//cap.setCapability("appActivity", "com.oneplus.calculator.Calculator");
+		
+		//cap.setCapability("appPackage", "com.google.android.calculator 8.2");
+		//cap.setCapability("appActivity", "com.android.calculator2.Calculator");
+		
+		
+		URL url = new URL("http://127.0.0.1:4723/wd/hub");
+		
+		driver = new AndroidDriver<MobileElement>(url, cap);
+		
+		System.out.println("Calculator App started");
+		
+	}
+}
